@@ -75,6 +75,12 @@ export class OrgStore {
     return target ? `/o/${target.org.slug}/inicio` : '/organizacoes';
   }
 
+  /** Link de convite completo, respeitando o endereço-base do app (raiz do domínio ou subcaminho, como no GitHub Pages). */
+  inviteUrl(code: string): string {
+    const base = typeof document === 'undefined' ? 'http://localhost/' : document.baseURI;
+    return new URL(`convite/${code}`, base).href;
+  }
+
   /** Caminho absoluto dentro da organização atual: `link('sessoes', id)` → ['/o', slug, 'sessoes', id]. */
   link(...parts: string[]): string[] {
     return ['/o', this.currentSlug() ?? '', ...parts];

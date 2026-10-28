@@ -195,8 +195,8 @@ export class ProfilePage {
     const codes = new Set(this.earned.value() ?? []);
     return (this.allBadges.value() ?? []).map((b) => ({ ...b, earned: codes.has(b.code) }));
   });
-  protected readonly inviteLink = computed(
-    () => `${globalThis.location?.origin ?? ''}/convite/${this.org.current()?.org.invite_code ?? ''}`,
+  protected readonly inviteLink = computed(() =>
+    this.org.inviteUrl(this.org.current()?.org.invite_code ?? ''),
   );
 
   constructor() {

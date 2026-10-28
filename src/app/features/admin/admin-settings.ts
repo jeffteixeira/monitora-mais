@@ -119,9 +119,7 @@ export class AdminSettings {
   protected readonly copied = signal(false);
   protected readonly rotateOpen = signal(false);
 
-  protected readonly link = computed(
-    () => `${globalThis.location?.origin ?? ''}/convite/${this.org.current()?.org.invite_code ?? ''}`,
-  );
+  protected readonly link = computed(() => this.org.inviteUrl(this.org.current()?.org.invite_code ?? ''));
 
   constructor() {
     effect(() => {

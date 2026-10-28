@@ -39,7 +39,7 @@ export class AuthStore {
     const { data, error } = await this.client.auth.signUp({
       email,
       password,
-      options: { data: { full_name: fullName } },
+      options: { data: { full_name: fullName }, emailRedirectTo: this.confirmationUrl() },
     });
     if (error) {
       throw new Error(error.message);
@@ -48,6 +48,16 @@ export class AuthStore {
       await this.apply(data.session.user);
     }
     return data.session === null;
+  }
+
+  /**
+   * Para onde o link de confirmação do e-mail leva. Usa o endereço-base do app (raiz do domínio ou
+   * subcaminho, como no GitHub Pages) em vez de depender só do "Site URL" do Supabase. A rota `/app`
+   * recebe o usuário já autenticado e o leva à última organização.
+   * O endereço também precisa estar em "Redirect URLs" no painel do Supabase.
+   */
+  private confirmationUrl(): string | undefined {
+    return typeof document === 'undefined' ? undefined : new URL('app', document.baseURI).href;
   }
 
   async signOut(): Promise<void> {

@@ -1,5 +1,5 @@
 {
-  "id": "/",
+  "id": "./",
   "name": "Monitora+ · Banco de tempo acadêmico",
   "short_name": "Monitora+",
   "description": "Monitoria entre colegas com banco de tempo: 1 hora ensinada = 1 crédito.",
@@ -7,20 +7,66 @@
   "dir": "ltr",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "scope": "/",
-  "start_url": "/app",
+  "scope": "./",
+  "start_url": "./app",
   "background_color": "#ffffff",
   "theme_color": "#0f6b6a",
-  "categories": ["education", "productivity"],
+  "categories": [
+    "education",
+    "productivity"
+  ],
   "icons": [
-    { "src": "icons/icon-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icons/maskable-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "icons/maskable-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
-    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/maskable-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
   ],
   "shortcuts": [
-    { "name": "Explorar monitorias", "url": "/app?to=explorar", "icons": [{ "src": "icons/icon-192x192.png", "sizes": "192x192" }] },
-    { "name": "Minha carteira", "url": "/app?to=carteira", "icons": [{ "src": "icons/icon-192x192.png", "sizes": "192x192" }] }
+    {
+      "name": "Explorar monitorias",
+      "url": "./app?to=explorar",
+      "icons": [
+        {
+          "src": "icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Minha carteira",
+      "url": "./app?to=carteira",
+      "icons": [
+        {
+          "src": "icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ]
 }
