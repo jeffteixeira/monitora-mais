@@ -5,11 +5,17 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
-import { join } from 'node:path';
+import { basename, join } from 'node:path';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
+
+// Videochamada: câmera, microfone e captura de tela só para o próprio domínio.
+app.use((_req, res, next) => {
+  res.setHeader('Permissions-Policy', 'camera=(self), microphone=(self), display-capture=(self)');
+  next();
+});
 const angularApp = new AngularNodeAppEngine();
 
 /**
@@ -27,11 +33,20 @@ const angularApp = new AngularNodeAppEngine();
 /**
  * Serve static files from /browser
  */
+// O service worker e o manifest precisam ser revalidados a cada acesso; sem isso, um deploy novo
+// ficaria preso atrás do cache de 1 ano e os usuários nunca receberiam a atualização.
+const NO_CACHE = new Set(['ngsw-worker.js', 'ngsw.json', 'safety-worker.js', 'worker-basic.min.js', 'manifest.webmanifest']);
+
 app.use(
   express.static(browserDistFolder, {
     maxAge: '1y',
     index: false,
     redirect: false,
+    setHeaders: (res, filePath) => {
+      if (NO_CACHE.has(basename(filePath))) {
+        res.setHeader('Cache-Control', 'no-cache');
+      }
+    },
   }),
 );
 
