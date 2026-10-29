@@ -56,6 +56,7 @@ interface Confirm {
 
     @if (data.value(); as d) {
       @let s = d.session;
+      <h1 class="sr-only">{{ s.subject.name }} com {{ s.monitor.full_name }}</h1>
       <div class="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
         <z-card>
           <z-card-header>

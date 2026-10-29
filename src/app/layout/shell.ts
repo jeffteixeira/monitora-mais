@@ -20,6 +20,7 @@ import { AuthStore } from '../core/auth/auth.store';
 import { OrgStore } from '../core/org/org.store';
 import { PwaService } from '../core/pwa/pwa.service';
 import { formatCredits } from '../core/util/format';
+import { ThemeSelector } from '../shared/ui/theme-selector';
 
 interface NavItem {
   path: string;
@@ -40,7 +41,7 @@ const MANAGE = '__manage__';
 
 @Component({
   selector: 'app-shell',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgIcon, ZardButtonComponent, ZardAvatarImports, ZardSelectImports],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgIcon, ThemeSelector, ZardButtonComponent, ZardAvatarImports, ZardSelectImports],
   viewProviders: [
     provideIcons({
       lucideHouse,
@@ -97,6 +98,7 @@ const MANAGE = '__manage__';
         </nav>
 
         <div class="ml-auto flex items-center gap-2">
+          <app-theme-selector class="hidden sm:block" />
           @if (pwa.canInstall()) {
             <button z-button zType="outline" zSize="sm" type="button" class="hidden sm:inline-flex" (click)="pwa.install()">
               Instalar app
@@ -105,13 +107,14 @@ const MANAGE = '__manage__';
           <a
             [routerLink]="base() + 'carteira'"
             class="flex shrink-0 items-center gap-1.5 rounded-full border bg-gold-soft px-3 py-1 text-sm font-semibold whitespace-nowrap text-foreground"
-            aria-label="Seu saldo de créditos nesta organização"
           >
             <ng-icon name="lucideWallet" size="14" aria-hidden="true" />
+            <span class="sr-only">Saldo de créditos nesta organização:</span>
             <span aria-live="polite">{{ balanceLabel() }}</span>
           </a>
-          <a [routerLink]="base() + 'perfil'" aria-label="Meu perfil" class="rounded-full focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none">
-            <z-avatar [zFallback]="initials()" zSize="sm" />
+          <a [routerLink]="base() + 'perfil'" class="rounded-full focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none">
+            <z-avatar aria-hidden="true" [zFallback]="initials()" zSize="sm" />
+            <span class="sr-only">Meu perfil</span>
           </a>
           <button z-button zType="ghost" zSize="icon" type="button" class="hidden sm:inline-flex" aria-label="Sair" (click)="signOut()">
             <ng-icon name="lucideLogOut" aria-hidden="true" />

@@ -25,10 +25,11 @@ import { SupabaseService } from '../../core/supabase/supabase.service';
 import { averageRating, formatDateTime } from '../../core/util/format';
 import { LevelCard } from '../../shared/ui/level-card';
 import { Stars } from '../../shared/ui/stars';
+import { ThemeSelector } from '../../shared/ui/theme-selector';
 
 @Component({
   selector: 'app-profile',
-  imports: [NgIcon, LevelCard, Stars, ZardBadgeComponent, ZardButtonComponent, ZardCardImports, ZardDialogImports, ZardFieldImports, ZardInputComponent, ZardSelectImports, ZardTextareaComponent],
+  imports: [NgIcon, LevelCard, Stars, ThemeSelector, ZardBadgeComponent, ZardButtonComponent, ZardCardImports, ZardDialogImports, ZardFieldImports, ZardInputComponent, ZardSelectImports, ZardTextareaComponent],
   viewProviders: [provideIcons({ lucideAward, lucideCheck, lucideCopy, lucideLock })],
   template: `
     <h1 class="font-display text-3xl font-extrabold">Meu perfil</h1>
@@ -68,6 +69,10 @@ import { Stars } from '../../shared/ui/stars';
         </z-card-content>
       </z-card>
     </div>
+
+    <h2 class="mt-10 font-display text-2xl font-bold">Aparência</h2>
+    <p class="mt-1 mb-4 text-sm text-muted-foreground">A escolha vale para este aparelho.</p>
+    <app-theme-selector variant="cards" />
 
     <h2 class="mt-10 font-display text-2xl font-bold">Medalhas</h2>
     <ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">

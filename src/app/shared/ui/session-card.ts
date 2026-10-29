@@ -21,9 +21,9 @@ type CardSession = Omit<Session, 'taken'> & { taken?: number };
     <article class="flex h-full flex-col gap-3 rounded-xl border bg-card p-4 text-card-foreground">
       <header class="flex items-start justify-between gap-3">
         <div class="min-w-0">
-          <h3 class="truncate font-display text-lg leading-tight font-bold">
+          <h2 class="truncate font-display text-lg leading-tight font-bold">
             {{ session().subject.name }}
-          </h3>
+          </h2>
           @if (showMonitor()) {
             <a
               [routerLink]="org.link('monitores', session().monitor.id)"

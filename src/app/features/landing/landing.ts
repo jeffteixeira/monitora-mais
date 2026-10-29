@@ -13,9 +13,11 @@ import {
 
 import { ZardButtonComponent } from '@/shared/components/button';
 
+import { ThemeSelector } from '../../shared/ui/theme-selector';
+
 @Component({
   selector: 'app-landing',
-  imports: [RouterLink, NgIcon, ZardButtonComponent],
+  imports: [RouterLink, NgIcon, ThemeSelector, ZardButtonComponent],
   viewProviders: [
     provideIcons({ lucideAward, lucideCalendarCheck, lucideHeartHandshake, lucideRepeat, lucideShieldCheck, lucideTrendingUp, lucideTrophy }),
   ],
@@ -23,6 +25,7 @@ import { ZardButtonComponent } from '@/shared/components/button';
     <header class="mx-auto flex max-w-6xl items-center justify-between px-4 py-5">
       <a routerLink="/" class="font-display text-xl font-extrabold">Monitora<span class="text-gold">+</span></a>
       <nav aria-label="Conta" class="flex items-center gap-2">
+        <app-theme-selector />
         <a z-button zType="ghost" routerLink="/entrar">Entrar</a>
         <a z-button routerLink="/cadastro">Criar conta</a>
       </nav>

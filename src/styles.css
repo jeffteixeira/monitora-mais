@@ -21,10 +21,10 @@
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  --muted-foreground: oklch(0.5 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: oklch(0.52 0.22 27);
   --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
@@ -148,4 +148,12 @@
     -moz-appearance: textfield;
     appearance: textfield; /* Added for general compatibility */
   }
+}
+
+/* Controles nativos (rolagem, campos de data, caixas) seguem o tema escolhido, não só o do sistema. */
+html.scheme-light-dark {
+  color-scheme: light;
+}
+html.scheme-light-dark.dark {
+  color-scheme: dark;
 }

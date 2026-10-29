@@ -1,9 +1,11 @@
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+import { ThemeSelector } from '../../shared/ui/theme-selector';
+
 @Component({
   selector: 'app-auth-layout',
-  imports: [RouterLink],
+  imports: [RouterLink, ThemeSelector],
   template: `
     <div class="grid min-h-svh lg:grid-cols-[1fr_1.1fr]">
       <aside class="relative hidden overflow-hidden bg-primary p-12 text-primary-foreground lg:flex lg:flex-col lg:justify-between">
@@ -23,7 +25,8 @@ import { RouterLink } from '@angular/router';
         <div aria-hidden="true" class="pointer-events-none absolute -right-24 -bottom-24 size-96 rounded-full bg-primary-foreground/10"></div>
       </aside>
 
-      <main class="flex items-center justify-center px-6 py-12">
+      <main class="relative flex items-center justify-center px-6 py-12">
+        <app-theme-selector class="absolute top-4 right-4" />
         <div class="w-full max-w-sm">
           <a routerLink="/" class="mb-8 block font-display text-xl font-extrabold lg:hidden">Monitora<span class="text-gold">+</span></a>
           <h1 class="font-display text-3xl font-extrabold">{{ heading() }}</h1>
