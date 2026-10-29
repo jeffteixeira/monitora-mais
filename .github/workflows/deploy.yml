@@ -1,18 +1,25 @@
-name: Deploy no GitHub Pages
+name: CI e deploy no GitHub Pages
 
+# dev: roda testes e build, sem publicar.
+# main: além disso, publica no GitHub Pages (o site em produção).
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
+# Um build por branch; um novo push cancela o anterior da mesma branch.
 concurrency:
-  group: pages
+  group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+env:
+  # Só publica a partir da main (push ou execução manual), nunca em pull request.
+  PUBLISH: ${{ github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
 
 jobs:
   build:
@@ -38,14 +45,24 @@ jobs:
         run: cp dist/timebanking-angular-supabase/browser/index.csr.html dist/timebanking-angular-supabase/browser/404.html
 
       - uses: actions/configure-pages@v5
+        if: env.PUBLISH == 'true'
 
       - uses: actions/upload-pages-artifact@v3
+        if: env.PUBLISH == 'true'
         with:
           path: dist/timebanking-angular-supabase/browser
 
   deploy:
     needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    # Um deploy por vez e sem cancelar um em andamento.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
