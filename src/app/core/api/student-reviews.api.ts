@@ -51,7 +51,7 @@ export class StudentReviewsApi {
         .eq('student_id', studentId)
         .order('created_at', { ascending: false })
         .limit(30)
-        .returns<RawReview[]>(),
+        .overrideTypes<RawReview[], { merge: false }>(),
     );
     return rows.map(({ session, monitor, ...rest }) => ({
       ...rest,

@@ -97,7 +97,7 @@ export class OrgApi {
         .eq('org_id', this.org.requireId())
         .eq('status', 'active')
         .order('joined_at')
-        .returns<RawMember[]>(),
+        .overrideTypes<RawMember[], { merge: false }>(),
     );
     return rows.map(toMember);
   }

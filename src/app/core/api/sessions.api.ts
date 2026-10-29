@@ -16,6 +16,11 @@ interface RawMonitor {
   profile: { full_name: string };
 }
 type RawSession = Omit<Session, 'taken' | 'monitor'> & { monitor: RawMonitor };
+interface RawAttendee {
+  id: string;
+  status: Booking['status'];
+  student: { user_id: string; profile: { full_name: string } };
+}
 
 const toMonitor = (m: RawMonitor): MonitorSummary => ({
   id: m.user_id,
@@ -62,7 +67,7 @@ export class SessionsApi {
     if (filter.monitorId) {
       query = query.eq('monitor_id', filter.monitorId);
     }
-    const rows = unwrap(await query.returns<RawSession[]>());
+    const rows = unwrap(await query.overrideTypes<RawSession[], { merge: false }>());
     return this.withTaken(rows.map(toSession));
   }
 
@@ -89,7 +94,7 @@ export class SessionsApi {
         .neq('status', 'cancelled')
         .order('starts_at', { ascending: false })
         .limit(50)
-        .returns<RawSession[]>(),
+        .overrideTypes<RawSession[], { merge: false }>(),
     );
     return this.withTaken(rows.map(toSession));
   }
@@ -103,7 +108,7 @@ export class SessionsApi {
         .eq('student_id', studentId)
         .neq('status', 'cancelled')
         .order('created_at', { ascending: false })
-        .returns<(Omit<Booking, 'session'> & { session: RawSession })[]>(),
+        .overrideTypes<(Omit<Booking, 'session'> & { session: RawSession })[], { merge: false }>(),
     );
     return rows.map((r) => ({ ...r, session: toSession(r.session) }));
   }
@@ -131,9 +136,7 @@ export class SessionsApi {
         .eq('org_id', this.org.requireId())
         .eq('session_id', sessionId)
         .neq('status', 'cancelled')
-        .returns<
-          { id: string; status: Booking['status']; student: { user_id: string; profile: { full_name: string } } }[]
-        >(),
+        .overrideTypes<RawAttendee[], { merge: false }>(),
     );
     return rows.map((r) => ({
       id: r.id,

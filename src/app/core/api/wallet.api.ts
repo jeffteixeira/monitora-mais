@@ -39,7 +39,7 @@ export class WalletApi {
         .select('id, cost, verification_code, created_at, reward:rewards(title, kind)')
         .eq('org_id', this.org.requireId())
         .order('created_at', { ascending: false })
-        .returns<Redemption[]>(),
+        .overrideTypes<Redemption[], { merge: false }>(),
     );
   }
 

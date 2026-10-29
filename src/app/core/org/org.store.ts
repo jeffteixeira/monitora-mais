@@ -116,7 +116,7 @@ export class OrgStore {
         .eq('user_id', uid)
         .eq('status', 'active')
         .order('joined_at')
-        .returns<MembershipRow[]>(),
+        .overrideTypes<MembershipRow[], { merge: false }>(),
     );
     this.memberships.set(
       rows.map(({ organization, ...rest }) => ({ ...rest, org: organization })),
