@@ -106,7 +106,7 @@ import { ThemeSelector } from '../../shared/ui/theme-selector';
     </main>
 
     <footer class="mx-auto max-w-6xl px-4 py-8 text-sm text-muted-foreground">
-      Monitora+ · Projeto de TCC — monitoria acadêmica gamificada com banco de tempo.
+      Monitora+ · Monitoria acadêmica gamificada com banco de tempo.
     </footer>
   `,
 })
